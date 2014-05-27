@@ -18,7 +18,7 @@ fi
 # check if rudder-agent is already installed 
 #
 if rpm -qa | grep -w rudder-agent; then
-    echo --- Rudder-agent v`rpm -aq rudder-agent | cut -c 14-19` will be removed
+    echo --- Rudder-agent v$(rpm -aq rudder-agent | cut -c 14-19) will be removed
 else 
 	echo "@@@ Rudder-Agent not installed " 1>&2
 	exit 1;
