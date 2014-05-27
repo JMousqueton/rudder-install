@@ -53,7 +53,7 @@ fi
 #
 OSVERSION=$(rpm -q --queryformat '%{RELEASE}' "$(rpm -qa '(redhat|sl|centos|oraclelinux)-release(|-server|-workstation|-client|-computenode)')" |cut -c -1)
 #
-echo "--- Installing Repos for Rudder version $RUDDERVERSION on RHEL $OSVERSION"
+echo "--- Creating Repo's file for Rudder version $RUDDERVERSION on RHEL $OSVERSION"
 #
 echo "[Rudder_$RUDDERVERSION]
 name=Rudder $RUDDERVERSION Repository
@@ -63,7 +63,7 @@ gpgkey=http://www.rudder-project.org/rpm-$RUDDERVERSION/RHEL_$OSVERSION/repodata
 " > /etc/yum.repos.d/rudder.repo
 #
 if (("$OSVERSION" == "6")); then
-	echo --- Installation prerequise for Rudder Agent v$RUDDERVERSION
+	echo --- Installating dependences for Rudder Agent v$RUDDERVERSION
 	yum install tokyocabinet -y 
 	if ! rpm -qa | grep -qw tokyocabinet; then
   	  echo "@@@ Failed to connect to OS repository" 1>&2
@@ -71,7 +71,7 @@ if (("$OSVERSION" == "6")); then
 	fi
 fi
 #
-echo --- Installation Rudder Agent v$RUDDERVERSION
+echo --- Installing Rudder Agent v$RUDDERVERSION
 #
 yum --nogpg install rudder-agent -y
 #
@@ -80,7 +80,7 @@ if ! rpm -qa | grep -qw rudder-agent; then
     exit 1;
 fi
 #
-echo --- Configuration Rudder Roor Server : $RUDDERSERVER
+echo --- Configuring Rudder Roor Server : $RUDDERSERVER
 #
 echo $RUDDERSERVER > /var/rudder/cfengine-community/policy_server.dat
 #
@@ -95,7 +95,7 @@ fi
 mv /etc/hosts /etc/hosts.$$
 echo "127.0.0.1 localhost" > /etc/hosts
 #
-echo --- Start rudder-agent v$RUDDERVERSION
+echo --- Starting rudder-agent v$RUDDERVERSION
 #
 /etc/init.d/rudder-agent start > /dev/null 
 #
