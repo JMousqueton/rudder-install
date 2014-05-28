@@ -31,7 +31,7 @@
 # Rudder Version 
 RUDDERVERSION=2.10
 # Ruddder Server
-RUDDERSERVER=rudder.agrica.loc
+RUDDERSERVER=rudder
 #
 ########################################################################################################
 # DO NOT EDIT BELLOW THIS LINE 
