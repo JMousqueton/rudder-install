@@ -24,6 +24,8 @@
 #		Force error message to be send to std & error output (thanks JR)
 #	27/05/2014 : v1.1
 #		Compliante with shellcheck.net
+#	30/05/2014 : v1.2
+#		Add symbolinc link to crypto lib in case rudder-agent do not start and try again (bug Centos 6)
 ########################################################################################################
 #
 # Configuration 
