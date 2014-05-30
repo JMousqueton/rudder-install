@@ -108,7 +108,25 @@ if [ "$PROCESS_RUDDER" -eq "2" ];
 				/var/rudder/cfengine-community/bin/cf-agent -KI > /dev/null
 				#
         else
-			echo "@@@ Error rudder-agent is not running" 1>&2 
+			echo "@@@ Warning rudder-agent is not running" 1>&2
+			if [ $(uname -m) -eq "x86_64"];
+				then 
+					ln -sf /usr/lib64/libssl.so.10 /usr/lib64/libssl.so.6
+					ln -sf /usr/lib64/libcrypto.so.10 /usr/lib64/libcrypto.so.6
+				else
+					ln -sf /usr/lib/libssl.so.10 /usr/lib/libssl.so.6
+					ln -sf /usr/lib/libcrypto.so.10 /usr/lib/libcrypto.so.6
+			fi
+			PROCESS_RUDDER=$(pgrep -f "cfengine-community" | wc -l)
+			if [ "$PROCESS_RUDDER" -eq "2" ];
+        			then
+					echo --- Force rudder-agent to contact $RUDDERSERVER
+					# 
+					/var/rudder/cfengine-community/bin/cf-agent -KI > /dev/null
+					#
+        			else
+					echo "@@@ Error rudder-agent is not running" 1>&2
+			fi
         fi
 #
 # Restore original /etc/hosts file
